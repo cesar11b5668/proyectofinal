@@ -1,0 +1,146 @@
+body {
+  background-color: #202020;
+  color: white;
+}
+
+.app {
+  text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  background-color: #e62429; 
+  padding: 20px;
+  border-radius: 10px;
+}
+
+form {
+  margin: 20px 0;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.marvel-card {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.card {
+  width: 18rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 30rem;
+  max-height: 80vh;
+  padding: 20px;
+  background-color: #202020;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  overflow-y: auto;
+}
+
+.custom-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.modal-description {
+  text-align: left;
+  width: 100%;
+}
+  
+.modal-close-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: #0056b3;
+}
