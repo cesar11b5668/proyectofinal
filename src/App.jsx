@@ -1,67 +1,89 @@
 import { useState, useEffect } from 'react';
-import MarvelCard from './components/MarvelCard';
+import Modal from 'react-modal';
 import { getCharacters, getRandomCharacters } from './api/marvelapi';
+import MarvelCard from './components/MarvelCard';
 import './assets/css/index.css';
 
 const App = () => {
+  const [randomCharacters, setRandomCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [searchedCharacter, setSearchedCharacter] = useState('');
-
-  const fetchRandomCharacters = async () => {
-    setLoading(true);
-    const randomCharacters = await getRandomCharacters();
-    setCharacters(randomCharacters);
-    setSearchedCharacter('');
-    setLoading(false);
-  };
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   useEffect(() => {
-    fetchRandomCharacters();
+    getRandomCharacters().then(setRandomCharacters);
   }, []);
 
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const results = await getCharacters(searchTerm);
-    setCharacters(results);
-    setSearchedCharacter(searchTerm); // Update searched character name
-    setLoading(false);
+    getCharacters(searchTerm).then(setSearchResults);
   };
 
-  const handleTitleClick = () => {
+  const openModal = (character) => {
+    setSelectedCharacter(character);
+  };
+
+  const closeModal = () => {
+    setSelectedCharacter(null);
+  };
+
+  const handleLogoClick = () => {
     setSearchTerm('');
-    fetchRandomCharacters();
+    setSearchResults([]);
+    getRandomCharacters().then(setRandomCharacters);
   };
 
   return (
     <div className="app">
       <header>
-        <h1 onClick={handleTitleClick} style={{ cursor: 'pointer' }}>Marvel Characters</h1>
+        <h1 onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Personajes de Marvel</h1>
         <form onSubmit={handleSearch}>
           <input
             type="text"
+            placeholder="Buscar un personaje"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for a character"
-            className="form-control"
           />
-          <button type="submit" className="btn btn-primary">Search</button>
+          <button type="submit">Buscar</button>
         </form>
       </header>
-      <h2>{searchedCharacter ? searchedCharacter : 'Random Characters'}</h2>
       <div className="card-container">
-        {loading ? (
-          <p>Loading...</p>
-        ) : characters.length > 0 ? (
-          characters.map((character) => (
-            <MarvelCard key={character.id} character={character} />
-          ))
-        ) : (
-          <p>No random characters available.</p>
-        )}
+        {searchResults.length > 0
+          ? searchResults.map((character) => (
+              <MarvelCard key={character.id} character={character} openModal={openModal} />
+            ))
+          : randomCharacters.map((character) => (
+              <MarvelCard key={character.id} character={character} openModal={openModal} />
+            ))}
       </div>
+      {selectedCharacter && (
+        <Modal
+          isOpen={!!selectedCharacter}
+          onRequestClose={closeModal}
+          contentLabel="Detalles del Personaje"
+          className="custom-modal"
+          overlayClassName="custom-overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>{selectedCharacter.name}</h2>
+            <button onClick={closeModal} className="close-button">&times;</button>
+          </div>
+          <div className="modal-body">
+            <img src={`${selectedCharacter.thumbnail.path}.${selectedCharacter.thumbnail.extension}`} alt={selectedCharacter.name} className="modal-image"/>
+            <div className="modal-description">
+              <p><strong>Descripción:</strong> {selectedCharacter.description || 'No hay descripción disponible'}</p>
+              <p><strong>Cómics:</strong></p>
+              <ul>
+                {selectedCharacter.comics.items.map((comic) => (
+                  <li key={comic.resourceURI}>{comic.name}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <button onClick={closeModal} className="modal-close-button">Cerrar</button>
+        </Modal>
+      )}
     </div>
   );
 };

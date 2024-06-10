@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 const MarvelCard = ({ character }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const openModal = () => {
+  const handleCardClick = () => {
     setModalIsOpen(true);
   };
 
@@ -18,18 +18,18 @@ const MarvelCard = ({ character }) => {
 
   return (
     <div>
-      <div className="card marvel-card" onClick={openModal}>
+      <div className="card marvel-card" onClick={handleCardClick}>
         <img src={thumbnailUrl} className="card-img-top" alt={name} />
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
-          <p className="card-text">{description || 'No description available'}</p>
+          <p className="card-text">{description || 'No hay descripción disponible'}</p>
         </div>
       </div>
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        contentLabel="Character Details"
+        contentLabel="Detalles del Personaje"
         className="custom-modal"
         overlayClassName="custom-overlay"
         ariaHideApp={false}
@@ -41,8 +41,8 @@ const MarvelCard = ({ character }) => {
         <div className="modal-body">
           <img src={thumbnailUrl} alt={name} className="modal-image"/>
           <div className="modal-description">
-            <p><strong>Description:</strong> {description || 'No description available'}</p>
-            <p><strong>Comics:</strong></p>
+            <p><strong>Descripción:</strong> {description || 'No hay descripción disponible'}</p>
+            <p><strong>Cómics:</strong></p>
             <ul>
               {comics.items.map((comic) => (
                 <li key={comic.resourceURI}>{comic.name}</li>
@@ -50,7 +50,7 @@ const MarvelCard = ({ character }) => {
             </ul>
           </div>
         </div>
-        <button onClick={closeModal} className="modal-close-button">Close</button>
+        <button onClick={closeModal} className="modal-close-button">Cerrar</button>
       </Modal>
     </div>
   );

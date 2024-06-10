@@ -35,7 +35,7 @@ export const getRandomCharacters = async () => {
       params: {
         ...authParams,
         limit: 3,
-        offset: Math.floor(Math.random() * 1000), // Para obtener 3 personajes aleatorios
+        offset: Math.floor(Math.random() * 1000), 
       },
     });
     return response.data.data.results;

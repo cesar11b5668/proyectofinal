@@ -10,7 +10,7 @@ body {
 }
 
 header {
-  background-color: #e62429; 
+  background-color: #e62429;
   padding: 20px;
   border-radius: 10px;
 }
@@ -76,32 +76,30 @@ button:hover {
 }
 
 .custom-modal {
+  background-color: #202020;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80%;
+  margin: auto;
   position: absolute;
   top: 50%;
   left: 50%;
-  right: auto;
-  bottom: auto;
   transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 30rem;
-  max-height: 80vh;
-  padding: 20px;
-  background-color: #202020;
-  color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  outline: none;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   overflow-y: auto;
 }
 
 .custom-overlay {
   background-color: rgba(0, 0, 0, 0.75);
-}
-
-.modal-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -110,13 +108,10 @@ button:hover {
   border: none;
   color: white;
   font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .modal-image {
@@ -125,20 +120,31 @@ button:hover {
   margin-bottom: 20px;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .modal-description {
   text-align: left;
   width: 100%;
 }
-  
+
 .modal-close-button {
-  padding: 10px 20px;
-  font-size: 16px;
   background-color: #007bff;
   color: white;
   border: none;
+  padding: 10px;
   border-radius: 5px;
-  margin-top: 10px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .modal-close-button:hover {
